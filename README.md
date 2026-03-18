@@ -1,0 +1,1 @@
+# wakleague_template_class
