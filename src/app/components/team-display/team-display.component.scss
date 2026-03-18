@@ -1,0 +1,103 @@
+:host {
+  display: block;
+}
+
+.teams-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+  flex: 1;
+  max-width: 420px;
+}
+
+.team-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 6px 20px;
+  border-radius: 20px;
+}
+
+.left-title {
+  color: #7ab5f5;
+  background: rgba(74, 144, 226, 0.15);
+  border: 1px solid rgba(74, 144, 226, 0.35);
+}
+
+.right-title {
+  color: #f0837a;
+  background: rgba(231, 76, 60, 0.15);
+  border: 1px solid rgba(231, 76, 60, 0.35);
+}
+
+.team-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  min-height: 100px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  width: 100%;
+}
+
+.slot-wrapper {
+  animation: slot-appear 0.3s ease;
+
+  &.dragging {
+    opacity: 0.4;
+  }
+}
+
+@keyframes slot-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.empty-hint {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  text-align: center;
+  font-style: italic;
+  align-self: center;
+  margin: 0;
+  padding: 8px;
+}
+
+/* VS divider */
+.vs-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.vs-text {
+  font-size: 28px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  writing-mode: horizontal-tb;
+}

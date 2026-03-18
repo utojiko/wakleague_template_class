@@ -1,0 +1,76 @@
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+  background: #0f0f1a;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #e0e0e0;
+
+  &.overlay-mode {
+    background: transparent;
+    padding: 12px;
+    gap: 0;
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #4a90e2, #9b59b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+/* ── Sections ────────────────────────────────────────────── */
+.teams-section {
+  flex-shrink: 0;
+}
+
+.controls-section {
+  flex: 1;
+}
+
+/* ── Overlay hint ────────────────────────────────────────── */
+.overlay-hint {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 12px;
+  border-radius: 12px;
+  pointer-events: none;
+}

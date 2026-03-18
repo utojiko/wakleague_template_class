@@ -1,0 +1,35 @@
+<!-- ============================================================
+     Wakfu Overlay — PvP Team Manager
+     ============================================================ -->
+
+<div class="app-wrapper" [class.overlay-mode]="isOverlayMode()">
+
+  <!-- Header (hidden in overlay mode) -->
+  @if (!isOverlayMode()) {
+    <header class="app-header">
+      <div class="header-brand">
+        <img src="assets/wakfu-logo.svg" alt="Wakfu" class="logo" />
+        <span class="brand-name">Wakfu PvP Overlay</span>
+      </div>
+      <p class="header-sub">Gérez vos équipes pour votre stream</p>
+    </header>
+  }
+
+  <!-- Teams display (always visible) -->
+  <main class="teams-section">
+    <app-team-display [overlayMode]="isOverlayMode()" />
+  </main>
+
+  <!-- Class selector (hidden in overlay mode) -->
+  @if (!isOverlayMode()) {
+    <aside class="controls-section">
+      <app-class-selector />
+    </aside>
+  }
+
+  <!-- Overlay mode hint -->
+  @if (isOverlayMode()) {
+    <div class="overlay-hint">Mode Overlay actif — ajoutez ?overlay=false pour accéder aux contrôles</div>
+  }
+
+</div>

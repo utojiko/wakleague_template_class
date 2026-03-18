@@ -1,0 +1,62 @@
+<div class="teams-container">
+
+  <!-- Left Team -->
+  <div class="team left-team">
+    <h2 class="team-title left-title">Équipe Bleue</h2>
+    <div class="team-slots">
+      @for (slot of state.leftTeam(); track slot.gameClass.id; let i = $index) {
+        <div
+          class="slot-wrapper"
+          draggable="true"
+          (dragstart)="onDragStart('left', i, $event)"
+          (dragend)="onDragEnd($event)"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop('left', i, $event)"
+        >
+          <app-class-card
+            [slot]="slot"
+            [showRemove]="!overlayMode()"
+            (cardClick)="toggleDead('left', i)"
+            (removeClick)="removeClass('left', i)"
+          />
+        </div>
+      }
+      @if (state.leftTeam().length === 0) {
+        <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
+      }
+    </div>
+  </div>
+
+  <!-- VS divider -->
+  <div class="vs-divider">
+    <span class="vs-text">VS</span>
+  </div>
+
+  <!-- Right Team -->
+  <div class="team right-team">
+    <h2 class="team-title right-title">Équipe Rouge</h2>
+    <div class="team-slots">
+      @for (slot of state.rightTeam(); track slot.gameClass.id; let i = $index) {
+        <div
+          class="slot-wrapper"
+          draggable="true"
+          (dragstart)="onDragStart('right', i, $event)"
+          (dragend)="onDragEnd($event)"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop('right', i, $event)"
+        >
+          <app-class-card
+            [slot]="slot"
+            [showRemove]="!overlayMode()"
+            (cardClick)="toggleDead('right', i)"
+            (removeClick)="removeClass('right', i)"
+          />
+        </div>
+      }
+      @if (state.rightTeam().length === 0) {
+        <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
+      }
+    </div>
+  </div>
+
+</div>
