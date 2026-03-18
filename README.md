@@ -2,6 +2,9 @@
 
 Interface web Angular pour gérer et afficher les classes de deux équipes lors de combats PvP sur Wakfu — conçue comme overlay Streamlabs OBS.
 
+DÉPLOYER L'APPLICATION 
+ng build --output-path docs --base-href /wakleague_template_class/
+
 ## 🚀 Démarrage rapide
 
 ```bash
