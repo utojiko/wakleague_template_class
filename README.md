@@ -2,8 +2,36 @@
 
 Interface web Angular pour gérer et afficher les classes de deux équipes lors de combats PvP sur Wakfu — conçue comme overlay Streamlabs OBS.
 
-DÉPLOYER L'APPLICATION 
-ng build --output-path docs --base-href /wakleague_template_class/
+DÉPLOYER L'APPLICATION (GitHub Pages)
+
+Ce dépôt contient déjà des scripts npm pour faciliter le déploiement sur GitHub Pages. Deux options :
+
+- Build seul (prépare les fichiers avec le bon `base-href`) :
+
+```bash
+npm run github-build
+```
+
+- Build + publication sur GitHub Pages (utilise `angular-cli-ghpages` via `npx`) :
+
+```bash
+npm run github-deploy
+```
+
+Que fait `github-deploy` :
+- construit l'application en production avec le `base-href` adapté (`/wakleague_template_class/` par défaut),
+- copie `index.html` en `404.html` pour permettre le refresh sur GitHub Pages,
+- publie le dossier `dist/wakfu-overlay/browser` sur la branche gh-pages.
+
+Remarque importante : le `base-href` utilisé par le script est `/wakleague_template_class/`. Si votre dépôt GitHub a un nom différent, adaptez la valeur de `github-build` dans `package.json` (ou exécutez manuellement `ng build --configuration production --base-href /NOM_DU_REPO/`).
+
+Si vous préférez héberger sur la branche `docs/` (GitHub Pages via `docs`), vous pouvez aussi :
+
+```bash
+ng build --output-path docs --base-href /NOM_DU_REPO/
+```
+
+Puis pousser la branche principale contenant le dossier `docs/`.
 
 ## 🚀 Démarrage rapide
 
@@ -22,19 +50,6 @@ Puis ouvrez [http://localhost:4200](http://localhost:4200)
 - **Drag & Drop** : réorganisez les classes dans les équipes
 - **Sauvegarde automatique** dans le localStorage
 - **Mode Overlay** pour Streamlabs OBS
-
-## 🖥️ Mode Overlay (Streamlabs OBS)
-
-Ajoutez `?overlay=true` à l'URL dans votre source navigateur :
-
-```
-http://localhost:4200/?overlay=true
-```
-
-En mode overlay :
-- Les contrôles de sélection sont masqués
-- Seules les équipes sont affichées
-- Le fond est transparent
 
 ## 📁 Structure
 
