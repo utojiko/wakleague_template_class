@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "github-build": "ng build --configuration production --base-href /wakleague_template_class/",
+    "github-deploy": "npm run github-build && node -e \"require('fs').copyFileSync('dist/wakfu-overlay/browser/index.html','dist/wakfu-overlay/browser/404.html')\" && npx angular-cli-ghpages --dir=dist/wakfu-overlay/browser --no-silent"
   },
   "private": true,
   "packageManager": "npm@11.9.0",
@@ -17,6 +19,7 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "firebase": "^12.11.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

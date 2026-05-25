@@ -3,29 +3,37 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 20px;
+  /* leave space at bottom for the fixed transparent footer */
+  padding: 0px 0px 96px;
   background: #0f0f1a;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: #e0e0e0;
 
   &.overlay-mode {
     background: transparent;
-    padding: 12px;
+    /* keep top padding so content isn't hidden under fixed header */
     gap: 0;
   }
 }
 
 /* ── Header ──────────────────────────────────────────────── */
-.app-header {
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1300;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 20px;
+  /* transparent footer that acts as overlay; slight backdrop blur */
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.header-brand {
+.footer-brand {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -46,9 +54,9 @@
   background-clip: text;
 }
 
-.header-sub {
+.footer-sub {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.4);
+  color: black;
   margin: 0;
 }
 
@@ -73,4 +81,82 @@
   padding: 4px 12px;
   border-radius: 12px;
   pointer-events: none;
+}
+
+/* Floating edit button for overlay mode */
+.overlay-fab {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 1200;
+}
+
+.overlay-fab .edit-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.overlay-fab .edit-toggle.active {
+  background: linear-gradient(90deg,#4a90e2,#9b59b6);
+}
+
+/* Compact selector shown in overlay when editing is enabled */
+.overlay-selector {
+  position: fixed;
+  left: 8px;
+  top: 8px;
+  z-index: 1100;
+  max-width: 420px;
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  background: rgba(0,0,0,0.55);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* Sync indicator */
+.sync-indicator {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1400;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.sync-indicator .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: gray;
+  display: inline-block;
+}
+.sync-indicator.firebase .dot { background: #2ecc71; }
+.sync-indicator.broadcast .dot { background: #f1c40f; }
+.sync-indicator.local .dot { background: #95a5a6; }
+.sync-indicator .sid { opacity: 0.85; font-family: monospace; margin-left: 6px; }
+
+/* Hide footer and chrome when running as a remote overlay (Streamlabs/OBS) */
+body.overlay-remote .app-footer {
+  display: none !important;
+}
+
+/* Also hide floating UI elements in remote overlay */
+body.overlay-remote .overlay-fab,
+body.overlay-remote .overlay-selector,
+body.overlay-remote .controls-section {
+  display: none !important;
 }

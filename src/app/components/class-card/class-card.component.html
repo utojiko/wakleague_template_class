@@ -1,7 +1,6 @@
 <div
   class="class-card"
   [ngClass]="{ dead: slot().isDead }"
-  [ngStyle]="{ '--class-color': slot().gameClass.color }"
   (click)="onCardClick()"
   [attr.title]="slot().gameClass.name"
 >

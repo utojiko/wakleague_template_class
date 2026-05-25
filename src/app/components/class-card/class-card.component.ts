@@ -1,11 +1,11 @@
 import { Component, input, output } from '@angular/core';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { TeamSlot } from '../../models/game-class.model';
 
 @Component({
   selector: 'app-class-card',
   standalone: true,
-  imports: [NgClass, NgStyle],
+  imports: [NgClass],
   templateUrl: './class-card.component.html',
   styleUrl: './class-card.component.scss',
 })

@@ -76,6 +76,35 @@
   }
 }
 
+.copy-overlay-btn {
+  margin-left: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #4a90e2 0%, #9b59b6 100%);
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 8px 22px rgba(74,144,226,0.18), inset 0 -2px 8px rgba(0,0,0,0.12);
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 140ms ease;
+}
+
+.copy-overlay-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(74,144,226,0.22), inset 0 -2px 10px rgba(0,0,0,0.14);
+}
+
+.copy-overlay-btn:active {
+  transform: translateY(-1px) scale(0.995);
+  opacity: 0.98;
+}
+
+.copy-overlay-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Status bar */
 .status-bar {
   display: flex;
@@ -89,6 +118,7 @@
   padding: 4px 12px;
   border-radius: 20px;
   font-weight: 600;
+  color: white !important;
 }
 
 .left-count {
@@ -180,3 +210,31 @@
   justify-content: center;
   font-weight: 700;
 }
+
+/* Help / usage section shown below the selector */
+.selector-help {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  color: #d7d7d7;
+}
+
+.selector-help h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.selector-help ul {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.4;
+}
+
+.selector-help li {
+  margin-bottom: 6px;
+}
+

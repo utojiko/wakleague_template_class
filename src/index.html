@@ -1,13 +1,31 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
+
+  <script>
+    // Expose Firebase config to the app; initialization happens from the app code.
+    window.__FIREBASE_CONFIG__ = {
+      apiKey:
+      authDomain:
+      databaseURL:
+      projectId:
+      storageBucket:
+      messagingSenderId:
+      appId:
+      measurementId: 
+    };
+  </script>
+  
   <meta charset="utf-8">
   <title>Wakfu PvP Overlay</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
   <app-root></app-root>
 </body>
+
 </html>

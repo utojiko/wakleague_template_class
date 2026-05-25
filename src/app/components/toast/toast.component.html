@@ -1,0 +1,5 @@
+<div class="toast-host" aria-live="polite">
+  <div class="toast" *ngFor="let t of toasts$ | async">
+    {{ t.message }}
+  </div>
+</div>

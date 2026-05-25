@@ -20,6 +20,7 @@
     </div>
 
     <button class="reset-btn" (click)="reset()">🔄 Réinitialiser</button>
+    <button class="copy-overlay-btn" (click)="copyOverlayLink()">🔗 Copier le lien Overlay</button>
   </div>
 
   <!-- Status bar -->
@@ -40,7 +41,6 @@
     @for (cls of state.availableClasses(); track cls.id) {
       <div
         class="class-option"
-        [ngStyle]="{ '--class-color': cls.color }"
         [ngClass]="{
           used: isUsed(cls),
           'can-add': !isUsed(cls) && state.canAddToSelectedTeam()
@@ -55,5 +55,22 @@
         }
       </div>
     }
+  </div>
+  
+  <!-- Help / usage summary shown under the selector -->
+  <div class="selector-help" aria-label="Aide rapide">
+    <h4>Comment l'utiliser</h4>
+    <ul>
+      <li>Choisissez l'équipe que vous voulez modifier avec <strong>Équipe gauche</strong> ou <strong>Équipe droite</strong>.</li>
+      <li>Cliquez sur une classe pour l'ajouter à l'équipe sélectionnée (max 6 par équipe).</li>
+      <li>Une fois choisie, une classe peut être retirée de l'équipe en faisant un clic-droit sur celle-ci.</li>
+      <li>Pour afficher la classe comme étant morte, faites un clic-gauche.</li>
+      <li>Vous pouvez renommer les équipes en cliquant sur leur nom.</li>
+      <li>Pour déplacer des classes déjà choisies au sein d'une équipe, vous pouvez les glisser-déposer à l'emplacement de votre choix.</li>
+      <li><strong>🔄 Réinitialiser</strong> vide les deux équipes.</li>
+      <li><strong>🔗 Copier le lien Overlay</strong> copie l'URL à coller dans Streamlabs/OBS, après avoir créé une nouvelle "Source" de type "Source du navigateur". Il faudra réduire la taille de la fenêtre pour n'avoir que le haut de la fenêtre d'afficher.</li>
+      <li>Chaque changement réalisé sur le site est synchronisé en temps réel avec l'overlay OBS, ce qui fait que vous avez une interface simple à prendre en main pour facilement paramétrer l'affichage.</li>
+
+    </ul>
   </div>
 </section>

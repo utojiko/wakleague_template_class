@@ -1,62 +1,77 @@
 <div class="teams-container">
 
-  <!-- Left Team -->
+  <!-- Left Team (images only) -->
   <div class="team left-team">
-    <h2 class="team-title left-title">Équipe Bleue</h2>
     <div class="team-slots">
       @for (slot of state.leftTeam(); track slot.gameClass.id; let i = $index) {
-        <div
-          class="slot-wrapper"
-          draggable="true"
-          (dragstart)="onDragStart('left', i, $event)"
-          (dragend)="onDragEnd($event)"
-          (dragover)="onDragOver($event)"
-          (drop)="onDrop('left', i, $event)"
-        >
-          <app-class-card
-            [slot]="slot"
-            [showRemove]="!overlayMode()"
-            (cardClick)="toggleDead('left', i)"
-            (removeClick)="removeClass('left', i)"
-          />
+      <div class="slot-wrapper img-wrapper" draggable="true" (dragstart)="onDragStart('left', i, $event)"
+        (dragend)="onDragEnd($event)" (dragover)="onDragOver($event)" (drop)="onDrop('left', i, $event)"
+        (contextmenu)="onContextRemove('left', i, $event)">
+        <img src="{{slot.gameClass.image}}" alt="" class="team-img" draggable="false" (click)="toggleDead('left', i)" />
+        @if (slot.isDead) {
+        <div class="dead-overlay">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="4" x2="36" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+            <line x1="36" y1="4" x2="4" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+          </svg>
         </div>
+        }
+        @if (!overlayMode() || state.overlayEditEnabled()) {
+        <button class="remove-btn" (click)="removeClass('left', i); $event.stopPropagation()" title="Retirer">✕</button>
+        }
+      </div>
       }
       @if (state.leftTeam().length === 0) {
-        <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
+      <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
+      }
+    </div>
+    <div class="team-title-box left-title-box">
+      <div class="team-title-img" [style.width.px]="getTitleWidth('left')"></div>
+      @if (editingLeft()) {
+        <input #leftInput class="team-title-input" value="{{state.leftTeamName()}}" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
+      } @else {
+        <span class="team-title-text" (click)="startEditing('left')">{{state.leftTeamName()}}</span>
       }
     </div>
   </div>
 
-  <!-- VS divider -->
-  <div class="vs-divider">
-    <span class="vs-text">VS</span>
-  </div>
+  <!-- Center names -->
 
-  <!-- Right Team -->
+
+  <!-- Right Team (images only) -->
   <div class="team right-team">
-    <h2 class="team-title right-title">Équipe Rouge</h2>
+    <div class="team-title-box right-title-box">
+      <div class="team-title-img" [style.width.px]="getTitleWidth('right')"></div>
+      @if (editingRight()) {
+        <input #rightInput class="team-title-input" value="{{state.rightTeamName()}}" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
+      } @else {
+        <span class="team-title-text" (click)="startEditing('right')">{{state.rightTeamName()}}</span>
+      }
+    </div>
     <div class="team-slots">
       @for (slot of state.rightTeam(); track slot.gameClass.id; let i = $index) {
-        <div
-          class="slot-wrapper"
-          draggable="true"
-          (dragstart)="onDragStart('right', i, $event)"
-          (dragend)="onDragEnd($event)"
-          (dragover)="onDragOver($event)"
-          (drop)="onDrop('right', i, $event)"
-        >
-          <app-class-card
-            [slot]="slot"
-            [showRemove]="!overlayMode()"
-            (cardClick)="toggleDead('right', i)"
-            (removeClick)="removeClass('right', i)"
-          />
+      <div class="slot-wrapper img-wrapper" draggable="true" (dragstart)="onDragStart('right', i, $event)"
+        (dragend)="onDragEnd($event)" (dragover)="onDragOver($event)" (drop)="onDrop('right', i, $event)"
+        (contextmenu)="onContextRemove('right', i, $event)">
+        <img src="{{slot.gameClass.image}}" alt="" class="team-img" draggable="false"
+          (click)="toggleDead('right', i)" />
+        @if (slot.isDead) {
+        <div class="dead-overlay">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="4" x2="36" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+            <line x1="36" y1="4" x2="4" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+          </svg>
         </div>
+        }
+        @if (!overlayMode() || state.overlayEditEnabled()) {
+        <button class="remove-btn" (click)="removeClass('right', i); $event.stopPropagation()"
+          title="Retirer">✕</button>
+        }
+      </div>
       }
       @if (state.rightTeam().length === 0) {
         <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
       }
     </div>
   </div>
-
 </div>

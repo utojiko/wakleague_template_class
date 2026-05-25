@@ -77,6 +77,32 @@
   letter-spacing: 0.3px;
 }
 
+/* Overlay mode: show only the image (no border, no name, no padding). */
+body.overlay-mode .class-card {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.overlay-mode .card-name,
+body.overlay-mode .remove-btn {
+  display: none !important;
+}
+
+body.overlay-mode .card-image-wrapper {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 0 !important;
+}
+
+body.overlay-mode .card-image {
+  border-radius: 0 !important;
+}
+
 .remove-btn {
   position: absolute;
   top: -8px;

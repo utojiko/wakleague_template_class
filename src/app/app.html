@@ -4,32 +4,44 @@
 
 <div class="app-wrapper" [class.overlay-mode]="isOverlayMode()">
 
-  <!-- Header (hidden in overlay mode) -->
-  @if (!isOverlayMode()) {
-    <header class="app-header">
-      <div class="header-brand">
-        <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
-        <span class="brand-name">Wakfu PvP Overlay</span>
-      </div>
-      <p class="header-sub">Gérez vos équipes pour votre stream</p>
-    </header>
-  }
+  <!-- Footer will act as the transparent overlay (fixed at bottom) -->
 
   <!-- Teams display (always visible) -->
   <main class="teams-section">
     <app-team-display [overlayMode]="isOverlayMode()" />
   </main>
 
-  <!-- Class selector (hidden in overlay mode) -->
-  @if (!isOverlayMode()) {
-    <aside class="controls-section">
+  <!-- Class selector / controls (always visible on the single page) -->
+  <aside class="controls-section">
+    <app-class-selector />
+  </aside>
+
+  @if (state.overlayEditEnabled()) {
+    <aside class="overlay-selector">
       <app-class-selector />
     </aside>
   }
 
-  <!-- Overlay mode hint -->
-  @if (isOverlayMode()) {
-    <div class="overlay-hint">Mode Overlay actif — ajoutez ?overlay=false pour accéder aux contrôles</div>
-  }
+  <!-- Footer (fixed transparent overlay) -->
+  <footer class="app-footer">
+    @if (state.overlayEditEnabled()) {
+      <div class="footer-brand">
+        <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
+        <span class="brand-name">Wakfu PvP Overlay</span>
+      </div>
+      <p class="footer-sub">Gérez vos équipes pour votre stream</p>
+    }
+  </footer>
 
-</div>
+    <!-- Sync indicator (bottom-right) -->
+    <!-- <div class="sync-indicator" [class.firebase]="state.syncMode() === 'firebase'" [class.broadcast]="state.syncMode() === 'broadcast'" [class.local]="state.syncMode() === 'local'">
+      <span class="dot"></span>
+      <span class="text">{{ state.syncMode() }}</span>
+      @if (state.sessionId()) {
+        <span class="sid">{{ state.sessionId() }}</span>
+      }
+    </div> -->
+
+  <app-toast-host></app-toast-host>
+
+  </div>

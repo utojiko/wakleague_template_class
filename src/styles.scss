@@ -18,6 +18,12 @@ body {
   overflow-x: hidden;
 }
 
+/* When embedded as an overlay (?overlay=true) we add `overlay-mode` on the body
+   so the page background becomes transparent for stream software. */
+body.overlay-mode {
+  background: transparent;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
