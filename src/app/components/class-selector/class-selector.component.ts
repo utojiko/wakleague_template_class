@@ -28,8 +28,8 @@ export class ClassSelectorComponent {
       // set the session locally (this will attempt to initialize remote sync if configured)
       this.state.setSession(sid);
     }
-    // Generate a clean session URL without query parameters as requested
-    const overlayUrl = `${origin}${base}${sid}`;
+    // Use a query parameter so GitHub Pages does not return a 404 for the session URL.
+    const overlayUrl = `${origin}${base}?session=${encodeURIComponent(sid)}`;
 
     try {
       await navigator.clipboard.writeText(overlayUrl);

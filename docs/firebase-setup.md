@@ -33,7 +33,7 @@ Configuration Firebase (Realtime Database) pour les sessions partagées
 - Assurez-vous que `databaseURL` est correct et que les règles de la DB permettent l'accès selon votre usage.
 
 6) Utilisation
-- Ouvrez une session partagée : `https://<user>.github.io/wakleague_template_class/<SESSION_ID>`
+- Ouvrez une session partagée : `https://<user>.github.io/wakleague_template_class/?session=<SESSION_ID>`
 - Cliquez sur le bouton de copie d'URL dans l'interface pour générer un `SESSION_ID` si vous n'en avez pas.
 - Tous les navigateurs connectés sur la même `SESSION_ID` recevront les mises à jour en temps réel.
 

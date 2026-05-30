@@ -40,12 +40,15 @@ export class App implements OnInit {
       }
     }
 
+    // Preferred shared-session format for GitHub Pages links.
+    const querySid = params.get('session');
+
     // Detect session id from the path (e.g. /wakleague_template_class/SESSIONID)
     // but do not infer overlay/remote mode from the path anymore.
     const path = window.location.pathname || '/';
     const parts = path.replace(/\/+$/g, '').replace(/^\/+/, '').split('/');
     const baseName = 'wakleague_template_class';
-    let detectedSid: string | null = null;
+    let detectedSid: string | null = querySid && querySid.length > 2 ? querySid : null;
 
     // If the URL contains the base name followed by a segment, use that segment as SID
     const baseIndex = parts.indexOf(baseName);
