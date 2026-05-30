@@ -22,14 +22,17 @@ export class TeamDisplayComponent {
   @ViewChild('rightInput') rightInput?: ElementRef<HTMLInputElement>;
 
   toggleDead(team: 'left' | 'right', index: number): void {
+    console.log(`Toggling dead for ${team} at index ${index}`);
     this.state.toggleDead(team, index);
   }
 
   removeClass(team: 'left' | 'right', index: number): void {
+    console.log(`Removing class from ${team} at index ${index}`);
     this.state.removeClass(team, index);
   }
 
   startEditing(team: 'left' | 'right'): void {
+    console.log(`Starting to edit team name for ${team}`);
     if (team === 'left') {
       this.editingLeft.set(true);
       setTimeout(() => {
@@ -46,6 +49,7 @@ export class TeamDisplayComponent {
   }
 
   stopEditing(team: 'left' | 'right'): void {
+    console.log(`Stopping edit for team name for ${team}`);
     if (team === 'left') this.editingLeft.set(false);
     else this.editingRight.set(false);
   }
@@ -78,6 +82,7 @@ export class TeamDisplayComponent {
     if (this.dragTeam === team && this.dragIndex !== null && this.dragIndex !== toIndex) {
       this.state.reorderTeam(team, this.dragIndex, toIndex);
     }
+    console.log(`Dropped on ${team} at index ${toIndex}`);
     this.dragTeam = null;
     this.dragIndex = null;
   }
