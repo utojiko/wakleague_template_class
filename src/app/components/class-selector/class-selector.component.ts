@@ -14,6 +14,7 @@ import { GameClass } from '../../models/game-class.model';
 export class ClassSelectorComponent {
   readonly state = inject(GameStateService);
   readonly toast = inject(ToastService);
+  showResetDialog = false;
 
   async copyOverlayLink(): Promise<void> {
     // If a session is active, generate a session-based URL; otherwise create one and set it.
@@ -59,9 +60,16 @@ export class ClassSelectorComponent {
   }
 
   reset(): void {
-    if (confirm('Réinitialiser les deux équipes et leurs noms ?')) {
-      this.state.resetAll();
-    }
+    this.showResetDialog = true;
+  }
+
+  cancelReset(): void {
+    this.showResetDialog = false;
+  }
+
+  confirmReset(): void {
+    this.state.resetAll();
+    this.showResetDialog = false;
   }
 
   /** Returns true if a class is already used in either team */

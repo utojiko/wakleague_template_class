@@ -12,6 +12,80 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(6, 10, 18, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.reset-modal {
+  width: min(420px, 100%);
+  padding: 22px 20px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(22, 28, 41, 0.98), rgba(13, 17, 26, 0.98));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  color: #f2f2f2;
+}
+
+.reset-modal h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.reset-modal p {
+  margin: 0;
+  color: #c9c9c9;
+  line-height: 1.45;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-secondary-btn,
+.modal-danger-btn {
+  min-width: 110px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+}
+
+.modal-secondary-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0f0f0;
+}
+
+.modal-danger-btn {
+  background: linear-gradient(90deg, #d94c3d 0%, #b83327 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(185, 51, 39, 0.28);
+}
+
+.modal-secondary-btn:hover,
+.modal-danger-btn:hover {
+  transform: translateY(-1px);
+}
+
+.modal-secondary-btn:active,
+.modal-danger-btn:active {
+  transform: translateY(0);
+  opacity: 0.95;
+}
+
 /* Team toggle bar */
 .team-toggle {
   display: flex;

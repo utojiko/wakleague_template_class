@@ -23,6 +23,26 @@
     <button class="copy-overlay-btn" (click)="copyOverlayLink()">🔗 Copier le lien Overlay</button>
   </div>
 
+  @if (showResetDialog) {
+    <div class="modal-backdrop" (click)="cancelReset()">
+      <div
+        class="reset-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reset-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <h3 id="reset-modal-title">Réinitialiser les équipes ?</h3>
+        <p>Cette action vide les deux équipes et remet leurs noms par défaut.</p>
+
+        <div class="modal-actions">
+          <button type="button" class="modal-secondary-btn" (click)="cancelReset()">Annuler</button>
+          <button type="button" class="modal-danger-btn" (click)="confirmReset()">Réinitialiser</button>
+        </div>
+      </div>
+    </div>
+  }
+
   <!-- Status bar -->
   <div class="status-bar">
     <span class="team-count left-count">
