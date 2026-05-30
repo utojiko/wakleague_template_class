@@ -16,21 +16,13 @@
     <app-class-selector />
   </aside>
 
-  @if (state.overlayEditEnabled()) {
-    <aside class="overlay-selector">
-      <app-class-selector />
-    </aside>
-  }
-
   <!-- Footer (fixed transparent overlay) -->
   <footer class="app-footer">
-    @if (state.overlayEditEnabled()) {
-      <div class="footer-brand">
-        <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
-        <span class="brand-name">Wakfu PvP Overlay</span>
-      </div>
-      <p class="footer-sub">Gérez vos équipes pour votre stream</p>
-    }
+    <div class="footer-brand">
+      <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
+      <span class="brand-name">Wakfu PvP Overlay</span>
+    </div>
+    <p class="footer-sub">Gérez vos équipes pour votre stream</p>
   </footer>
 
     <!-- Sync indicator (bottom-right) -->

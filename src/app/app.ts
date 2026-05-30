@@ -41,6 +41,7 @@ export class App implements OnInit {
     }
 
     // Detect session id from the path (e.g. /wakleague_template_class/SESSIONID)
+    // but do not infer overlay/remote mode from the path anymore.
     const path = window.location.pathname || '/';
     const parts = path.replace(/\/+$/g, '').replace(/^\/+/, '').split('/');
     const baseName = 'wakleague_template_class';
@@ -57,12 +58,12 @@ export class App implements OnInit {
     const last = parts[parts.length - 1];
     if (!detectedSid && last && last !== baseName && last.length > 2) detectedSid = last;
 
-    // Also treat explicit ?overlay=true as remote overlay (legacy links)
+    // Only explicit ?overlay=true or being inside an iframe should hide the
+    // editing chrome. Path-based session links remain editable on GitHub Pages.
     const explicitOverlay = params.get('overlay') === 'true';
 
     if (detectedSid) {
       this.state.setSession(detectedSid);
-      try { document.body.classList.add('overlay-remote'); } catch {}
     } else if (explicitOverlay) {
       // No SID but overlay flag present: mark as remote to hide chrome
       try { document.body.classList.add('overlay-remote'); } catch {}
