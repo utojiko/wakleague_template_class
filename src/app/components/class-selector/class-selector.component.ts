@@ -19,7 +19,7 @@ export class ClassSelectorComponent {
   async copyOverlayLink(): Promise<void> {
     // If a session is active, generate a session-based URL; otherwise create one and set it.
     const origin = window.location.origin;
-    const base = '/wakleague_template_class/';
+    const base = '/wakleague_template_class';
     let sid = this.state.sessionId();
     const created = !sid;
     if (!sid) {
@@ -51,8 +51,29 @@ export class ClassSelectorComponent {
     }
   }
 
-  selectClass(cls: GameClass): void {
-    this.state.addClass(cls);
+  tryAddClass(cls: GameClass): void {
+    const team = this.state.selectedTeam();
+
+    if (!this.state.canAddToSelectedTeam()) {
+      this.toast.show(`L'équipe ${team === 'left' ? 'gauche' : 'droite'} est déjà complète.`);
+      return;
+    }
+
+    const alreadyUsed = team === 'left'
+      ? this.state.leftTeamIds().includes(cls.id)
+      : this.state.rightTeamIds().includes(cls.id);
+
+    if (alreadyUsed) {
+      this.toast.show(`${cls.name} est déjà dans l'équipe sélectionnée.`);
+      return;
+    }
+
+    const added = this.state.addClass(cls);
+    if (added) {
+      this.toast.show(`${cls.name} ajoutée à l'équipe ${team === 'left' ? 'gauche' : 'droite'}.`);
+    } else {
+      this.toast.show(`Impossible d'ajouter ${cls.name}.`);
+    }
   }
 
   setTargetTeam(team: 'left' | 'right'): void {
@@ -70,6 +91,7 @@ export class ClassSelectorComponent {
   confirmReset(): void {
     this.state.resetAll();
     this.showResetDialog = false;
+    this.toast.show('Les deux équipes et leurs noms ont été réinitialisés.');
   }
 
   /** Returns true if a class is already used in either team */

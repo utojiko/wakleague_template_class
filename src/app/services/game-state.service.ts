@@ -275,14 +275,14 @@ export class GameStateService {
    * Add a class to the selected team.
    * Validates max size and prevents duplicates across both teams.
    */
-  addClass(gameClass: GameClass): void {
+  addClass(gameClass: GameClass): boolean {
     const target = this.selectedTeam();
     const team = target === 'left' ? this.leftTeam() : this.rightTeam();
 
-    if (team.length >= MAX_TEAM_SIZE) return;
+    if (team.length >= MAX_TEAM_SIZE) return false;
     // Prevent duplicates only within the same team; allow same class in opposite team.
     const targetIds = team.map(s => s.gameClass.id);
-    if (targetIds.includes(gameClass.id)) return;
+    if (targetIds.includes(gameClass.id)) return false;
 
     const newSlot: TeamSlot = { gameClass, isDead: false };
     if (target === 'left') {
@@ -290,6 +290,7 @@ export class GameStateService {
     } else {
       this.rightTeam.update(t => [...t, newSlot]);
     }
+    return true;
   }
 
   /**

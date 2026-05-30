@@ -21,14 +21,12 @@
         }
       </div>
       }
-      @if (state.leftTeam().length === 0) {
-      <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
-      }
+      
     </div>
     <div class="team-title-box left-title-box">
       <div class="team-title-img" [style.width.px]="getTitleWidth('left')"></div>
       @if (editingLeft()) {
-        <input #leftInput class="team-title-input" value="{{state.leftTeamName()}}" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
+        <input #leftInput class="team-title-input" [value]="state.leftTeamName()" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
       } @else {
         <span class="team-title-text" (click)="startEditing('left')">{{state.leftTeamName()}}</span>
       }
@@ -43,7 +41,7 @@
     <div class="team-title-box right-title-box">
       <div class="team-title-img" [style.width.px]="getTitleWidth('right')"></div>
       @if (editingRight()) {
-        <input #rightInput class="team-title-input" value="{{state.rightTeamName()}}" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
+        <input #rightInput class="team-title-input" [value]="state.rightTeamName()" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
       } @else {
         <span class="team-title-text" (click)="startEditing('right')">{{state.rightTeamName()}}</span>
       }
@@ -69,9 +67,7 @@
         }
       </div>
       }
-      @if (state.rightTeam().length === 0) {
-        <p class="empty-hint">Aucune classe — ajoutez des classes ci-dessous</p>
-      }
+      
     </div>
   </div>
 </div>

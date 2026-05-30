@@ -59,13 +59,14 @@
   <!-- Class grid -->
   <div class="class-grid">
     @for (cls of state.availableClasses(); track cls.id) {
-      <div
+      <button
+        type="button"
         class="class-option"
         [ngClass]="{
           used: isUsed(cls),
           'can-add': !isUsed(cls) && state.canAddToSelectedTeam()
         }"
-        (click)="selectClass(cls)"
+        (click)="tryAddClass(cls)"
         [attr.title]="isUsed(cls) ? cls.name + ' (déjà sélectionnée)' : 'Ajouter ' + cls.name"
       >
         <img [src]="cls.image" [alt]="cls.name" class="option-image" draggable="false" />
@@ -73,7 +74,7 @@
         @if (isUsed(cls)) {
           <span class="used-badge">✓</span>
         }
-      </div>
+      </button>
     }
   </div>
   
