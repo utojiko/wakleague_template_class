@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { GameStateService } from '../../services/game-state.service';
 import { ToastService } from '../../services/toast.service';
-import { GameClass } from '../../models/game-class.model';
+import { GameClass, GameMap } from '../../models/game-class.model';
 
 @Component({
   selector: 'app-class-selector',
@@ -92,6 +92,29 @@ export class ClassSelectorComponent {
     this.state.resetAll();
     this.showResetDialog = false;
     this.toast.show('Les deux équipes et leurs noms ont été réinitialisés.');
+  }
+
+  async copyFullScreenLink(): Promise<void> {
+    const origin = window.location.origin;
+    const base = '/wakleague_template_class';
+    let sid = this.state.sessionId();
+    if (!sid) {
+      sid = Date.now().toString(36) + Math.floor(Math.random() * 1000).toString(36);
+      this.state.setSession(sid);
+    }
+    const fullscreenUrl = `${origin}${base}?session=${encodeURIComponent(sid)}&full-screen=true`;
+
+    try {
+      await navigator.clipboard.writeText(fullscreenUrl);
+      this.toast.show('Lien full-screen copié dans le presse-papiers.');
+    } catch {
+      prompt('Copiez ce lien pour OBS / Streamlabs (Ctrl+C):', fullscreenUrl);
+    }
+  }
+
+  selectMap(map: GameMap): void {
+    const isSelected = this.state.selectedMap()?.id === map.id;
+    this.state.setMap(isSelected ? null : map.id);
   }
 
   /** Returns true if a class is already used in either team */

@@ -24,27 +24,43 @@
       
     </div>
     <div class="team-title-box left-title-box">
-      <div class="team-title-img" [style.width.px]="getTitleWidth('left')"></div>
-      @if (editingLeft()) {
-        <input #leftInput class="team-title-input" [value]="state.leftTeamName()" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
+      <div class="team-title-img" [style.width.px]="getTitleWidth('left')">
+        @if (editingLeft()) {
+          <input #leftInput class="team-title-input" [value]="state.leftTeamName()" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
+        } @else {
+          <span class="team-title-text" (click)="startEditing('left')">{{state.leftTeamName()}}</span>
+        }
+      </div>
+    </div>
+    <div class="score-control left-score-control">
+      @if (editingLeftScore()) {
+        <input #leftScoreInput class="score-input" (blur)="commitScore('left', $event.target.value); stopEditingScore('left')" (keydown.enter)="$event.preventDefault(); commitScore('left', $event.target.value); stopEditingScore('left')" type="number" min="0" max="99" />
       } @else {
-        <span class="team-title-text" (click)="startEditing('left')">{{state.leftTeamName()}}</span>
+        <span class="score-value" (click)="startEditingScore('left')">{{ state.leftScore() }}</span>
       }
     </div>
   </div>
 
-  <!-- Center names -->
-
+  <!-- Center gap -->
+  <div class="vs-divider">VS</div>
 
   <!-- Right Team (images only) -->
   <div class="team right-team">
-    <div class="team-title-box right-title-box">
-      <div class="team-title-img" [style.width.px]="getTitleWidth('right')"></div>
-      @if (editingRight()) {
-        <input #rightInput class="team-title-input" [value]="state.rightTeamName()" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
+    <div class="score-control right-score-control">
+      @if (editingRightScore()) {
+        <input #rightScoreInput class="score-input" (blur)="commitScore('right', $event.target.value); stopEditingScore('right')" (keydown.enter)="$event.preventDefault(); commitScore('right', $event.target.value); stopEditingScore('right')" type="number" min="0" max="99" />
       } @else {
-        <span class="team-title-text" (click)="startEditing('right')">{{state.rightTeamName()}}</span>
+        <span class="score-value" (click)="startEditingScore('right')">{{ state.rightScore() }}</span>
       }
+    </div>
+    <div class="team-title-box right-title-box">
+      <div class="team-title-img" [style.width.px]="getTitleWidth('right')">
+        @if (editingRight()) {
+          <input #rightInput class="team-title-input" [value]="state.rightTeamName()" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
+        } @else {
+          <span class="team-title-text" (click)="startEditing('right')">{{state.rightTeamName()}}</span>
+        }
+      </div>
     </div>
     <div class="team-slots">
       @for (slot of state.rightTeam(); track slot.gameClass.id; let i = $index) {

@@ -2,18 +2,20 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { TeamDisplayComponent } from './components/team-display/team-display.component';
 import { ClassSelectorComponent } from './components/class-selector/class-selector.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { FullScreenAnnouncementComponent } from './components/full-screen-announcement/full-screen-announcement.component';
 import { GameStateService } from './services/game-state.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TeamDisplayComponent, ClassSelectorComponent, ToastComponent],
+  imports: [TeamDisplayComponent, ClassSelectorComponent, ToastComponent, FullScreenAnnouncementComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
   /** Always run in overlay mode for a single-page overlay UI */
   readonly isOverlayMode = signal<boolean>(true);
+  readonly isFullScreenMode = signal<boolean>(false);
   readonly state = inject(GameStateService);
 
   toggleOverlayEdit(): void {
@@ -26,6 +28,12 @@ export class App implements OnInit {
     document.body.classList.add('overlay-mode');
 
     const params = new URLSearchParams(window.location.search);
+
+    // Full-screen match announcement mode
+    if (params.get('full-screen') === 'true') {
+      this.isFullScreenMode.set(true);
+      document.body.classList.add('fullscreen-mode');
+    }
 
     // If an encoded `state` parameter is present, try to apply it (useful when
     // embedding the overlay with a pre-filled teams snapshot).
@@ -66,7 +74,10 @@ export class App implements OnInit {
     const explicitOverlay = params.get('overlay') === 'true';
 
     if (detectedSid) {
-      this.state.setSession(detectedSid);
+      // Full-screen and overlay pages are viewers (read-only);
+      // the config/setup page is the editor (read-write).
+      const isViewer = this.isFullScreenMode() || explicitOverlay || window.self !== window.top;
+      this.state.setSession(detectedSid, isViewer ? 'read-only' : 'read-write');
     } else if (explicitOverlay) {
       // No SID but overlay flag present: mark as remote to hide chrome
       try { document.body.classList.add('overlay-remote'); } catch {}

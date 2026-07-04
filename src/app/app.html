@@ -2,38 +2,33 @@
      Wakfu Overlay — PvP Team Manager
      ============================================================ -->
 
-<div class="app-wrapper" [class.overlay-mode]="isOverlayMode()">
+@if (isFullScreenMode()) {
+  <app-full-screen-announcement />
+} @else {
+  <div class="app-wrapper" [class.overlay-mode]="isOverlayMode()">
 
-  <!-- Footer will act as the transparent overlay (fixed at bottom) -->
+    <!-- Footer will act as the transparent overlay (fixed at bottom) -->
 
-  <!-- Teams display (always visible) -->
-  <main class="teams-section">
-    <app-team-display [overlayMode]="isOverlayMode()" />
-  </main>
+    <!-- Teams display (always visible) -->
+    <main class="teams-section">
+      <app-team-display [overlayMode]="isOverlayMode()" />
+    </main>
 
-  <!-- Class selector / controls (always visible on the single page) -->
-  <aside class="controls-section">
-    <app-class-selector />
-  </aside>
+    <!-- Class selector / controls (always visible on the single page) -->
+    <aside class="controls-section">
+      <app-class-selector />
+    </aside>
 
-  <!-- Footer (fixed transparent overlay) -->
-  <footer class="app-footer">
-    <div class="footer-brand">
-      <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
-      <span class="brand-name">Wakfu PvP Overlay</span>
-    </div>
-    <p class="footer-sub">Gérez vos équipes pour votre stream</p>
-  </footer>
+    <!-- Footer (fixed transparent overlay) -->
+    <footer class="app-footer">
+      <div class="footer-brand">
+        <img src="assets/wakleague.png" alt="Wakfu" class="logo" />
+        <span class="brand-name">Wakfu PvP Overlay</span>
+      </div>
+      <p class="footer-sub">Gérez vos équipes pour votre stream</p>
+    </footer>
 
-    <!-- Sync indicator (bottom-right) -->
-    <!-- <div class="sync-indicator" [class.firebase]="state.syncMode() === 'firebase'" [class.broadcast]="state.syncMode() === 'broadcast'" [class.local]="state.syncMode() === 'local'">
-      <span class="dot"></span>
-      <span class="text">{{ state.syncMode() }}</span>
-      @if (state.sessionId()) {
-        <span class="sid">{{ state.sessionId() }}</span>
-      }
-    </div> -->
-
-  <app-toast-host></app-toast-host>
+    <app-toast-host></app-toast-host>
 
   </div>
+}

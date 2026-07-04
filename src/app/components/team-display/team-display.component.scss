@@ -34,6 +34,10 @@
   order: 2;
   margin-left: 6px;
 }
+.left-team .left-score-control {
+  order: 3;
+  margin-left: 8px;
+}
 
 .right-team {
   align-items: center;
@@ -41,6 +45,10 @@
 .right-team .team-title-box {
   order: 1;
   margin-right: 6px;
+}
+.right-team .right-score-control {
+  order: 0;
+  margin-right: 8px;
 }
 .right-team .team-slots {
   order: 2;
@@ -214,6 +222,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 203, 120, 0.16), rgba(255, 203, 120, 0) 35%),
     linear-gradient(180deg, rgba(44, 18, 12, 0.98), rgba(15, 8, 7, 0.98));
@@ -317,6 +326,73 @@
     0 4px 10px rgba(0, 0, 0, 0.75);
 }
 
+/* ── Score controls ────────────────────────────── */
+.score-control {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 38px;
+  min-width: 32px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 203, 120, 0.08), rgba(255, 203, 120, 0) 50%),
+    linear-gradient(180deg, rgba(36, 26, 16, 0.9), rgba(18, 12, 8, 0.9));
+  border: 1px solid rgba(255, 132, 42, 0.25);
+  border-radius: 9px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  padding: 0 10px;
+}
+
+.score-value {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #f5e6a0;
+  min-width: 22px;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  text-shadow:
+    0 0 8px rgba(255, 215, 0, 0.25),
+    0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.score-value:hover {
+  text-shadow:
+    0 0 14px rgba(255, 215, 0, 0.45),
+    0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.score-input {
+  width: 34px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 6px;
+  color: #f5e6a0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
+  padding: 0 2px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  -moz-appearance: textfield;
+}
+
+.score-input::-webkit-outer-spin-button,
+.score-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.score-input:focus {
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+}
+
 /* Reduce size in overlay mode */
 body.overlay-mode .team-title-box {
   width: auto;
@@ -341,10 +417,16 @@ body.overlay-mode .team-slots {
   background: transparent !important;
 }
 
-/* shrink center names font in overlay */
-body.overlay-mode .center-names .center-left,
-body.overlay-mode .center-names .center-right {
-  font-size: 12px !important;
+/* overlay mode score controls */
+body.overlay-mode .score-value {
+  font-size: 12px;
+  min-width: 14px;
+}
+
+body.overlay-mode .score-input {
+  width: 26px;
+  height: 22px;
+  font-size: 12px;
 }
 
 /* Hide native scrollbars in overlay mode while keeping scroll behavior */

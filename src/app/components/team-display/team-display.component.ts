@@ -21,6 +21,12 @@ export class TeamDisplayComponent {
   @ViewChild('leftInput') leftInput?: ElementRef<HTMLInputElement>;
   @ViewChild('rightInput') rightInput?: ElementRef<HTMLInputElement>;
 
+  editingLeftScore = signal<boolean>(false);
+  editingRightScore = signal<boolean>(false);
+
+  @ViewChild('leftScoreInput') leftScoreInput?: ElementRef<HTMLInputElement>;
+  @ViewChild('rightScoreInput') rightScoreInput?: ElementRef<HTMLInputElement>;
+
   toggleDead(team: 'left' | 'right', index: number): void {
     console.log(`Toggling dead for ${team} at index ${index}`);
     this.state.toggleDead(team, index);
@@ -52,6 +58,34 @@ export class TeamDisplayComponent {
     console.log(`Stopping edit for team name for ${team}`);
     if (team === 'left') this.editingLeft.set(false);
     else this.editingRight.set(false);
+  }
+
+  startEditingScore(team: 'left' | 'right'): void {
+    if (team === 'left') {
+      this.editingLeftScore.set(true);
+      setTimeout(() => {
+        const el = this.leftScoreInput?.nativeElement;
+        if (el) { el.value = String(this.state.leftScore()); el.focus(); el.select(); }
+      }, 0);
+    } else {
+      this.editingRightScore.set(true);
+      setTimeout(() => {
+        const el = this.rightScoreInput?.nativeElement;
+        if (el) { el.value = String(this.state.rightScore()); el.focus(); el.select(); }
+      }, 0);
+    }
+  }
+
+  stopEditingScore(team: 'left' | 'right'): void {
+    if (team === 'left') this.editingLeftScore.set(false);
+    else this.editingRightScore.set(false);
+  }
+
+  commitScore(team: 'left' | 'right', value: string): void {
+    const num = parseInt(value, 10);
+    if (!isNaN(num)) {
+      this.state.setScore(team, num);
+    }
   }
 
   /** Remove a class when user right-clicks (context menu) on a slot */

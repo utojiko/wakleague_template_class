@@ -1,0 +1,61 @@
+<div class="fullscreen-container">
+  @if (state.selectedMap(); as map) {
+    <div class="bg-map" [style.background-image]="'url(' + map.fullImage + ')'"></div>
+  }
+  <div class="bg-glow left-glow"></div>
+  <div class="bg-glow right-glow"></div>
+
+    <div class="team-section left-section">
+    <div class="team-name left-name">{{ state.leftTeamName() }}</div>
+    <div class="class-list" [style.--items-per-row]="itemsPerRow()">
+      @for (slot of state.leftTeam(); track slot.gameClass.id; let i = $index) {
+        <div class="class-slot" [class.is-dead]="slot.isDead" [style.--slot-i]="i">
+          <img [src]="slot.gameClass.image" [alt]="slot.gameClass.name" class="class-img" />
+          @if (slot.isDead) {
+            <div class="dead-overlay">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="4" x2="36" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+                <line x1="36" y1="4" x2="4" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="vs-section">
+    <div class="score-display">
+      <span class="score left-score">{{ state.leftScore() }}</span>
+      <span class="score-separator">-</span>
+      <span class="score right-score">{{ state.rightScore() }}</span>
+    </div>
+    <div class="vs-circle">
+      <span class="vs-text">VS</span>
+    </div>
+    @if (state.selectedMap(); as map) {
+      <div class="map-info">
+        <img [src]="map.image" [alt]="map.name" class="map-img" />
+      </div>
+    }
+  </div>
+
+    <div class="team-section right-section">
+    <div class="team-name right-name">{{ state.rightTeamName() }}</div>
+    <div class="class-list" [style.--items-per-row]="itemsPerRow()">
+      @for (slot of state.rightTeam(); track slot.gameClass.id; let i = $index) {
+        <div class="class-slot" [class.is-dead]="slot.isDead" [style.--slot-i]="i">
+          <img [src]="slot.gameClass.image" [alt]="slot.gameClass.name" class="class-img" />
+          @if (slot.isDead) {
+            <div class="dead-overlay">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="4" x2="36" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+                <line x1="36" y1="4" x2="4" y2="36" stroke="crimson" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

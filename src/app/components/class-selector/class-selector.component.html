@@ -21,6 +21,7 @@
 
     <button class="reset-btn" (click)="reset()">🔄 Réinitialiser</button>
     <button class="copy-overlay-btn" (click)="copyOverlayLink()">🔗 Copier le lien Overlay</button>
+    <button class="copy-fullscreen-btn" (click)="copyFullScreenLink()">🖥️ Copier le lien Full-Screen</button>
   </div>
 
   @if (showResetDialog) {
@@ -76,6 +77,24 @@
         }
       </button>
     }
+  </div>
+
+  <!-- Map selector -->
+  <div class="map-selector">
+    <span class="map-selector-label">🗺️ Carte du match :</span>
+    <div class="map-grid">
+      @for (map of state.availableMaps(); track map.id) {
+        <button
+          type="button"
+          class="map-option"
+          [class.selected]="state.selectedMap()?.id === map.id"
+          (click)="selectMap(map)"
+          [attr.title]="map.name"
+        >
+          <img [src]="map.image" [alt]="map.name" class="map-option-img" draggable="false" />
+        </button>
+      }
+    </div>
   </div>
   
   <!-- Help / usage summary shown under the selector -->

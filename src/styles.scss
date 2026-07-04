@@ -24,6 +24,11 @@ body.overlay-mode {
   background: transparent;
 }
 
+body.fullscreen-mode {
+  background: #08080f;
+  overflow: hidden;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
