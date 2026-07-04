@@ -4,6 +4,8 @@
 
 @if (isFullScreenMode()) {
   <app-full-screen-announcement />
+} @else if (isScoreboardMode()) {
+  <app-team-display [overlayMode]="true" [readonly]="true" />
 } @else {
   <div class="app-wrapper" [class.overlay-mode]="isOverlayMode()">
 

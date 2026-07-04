@@ -16,6 +16,7 @@ export class App implements OnInit {
   /** Always run in overlay mode for a single-page overlay UI */
   readonly isOverlayMode = signal<boolean>(true);
   readonly isFullScreenMode = signal<boolean>(false);
+  readonly isScoreboardMode = signal<boolean>(false);
   readonly state = inject(GameStateService);
 
   toggleOverlayEdit(): void {
@@ -33,6 +34,11 @@ export class App implements OnInit {
     if (params.get('full-screen') === 'true') {
       this.isFullScreenMode.set(true);
       document.body.classList.add('fullscreen-mode');
+    }
+
+    // Scoreboard overlay mode (just team display, no controls)
+    if (params.get('scoreboard') === 'true') {
+      this.isScoreboardMode.set(true);
     }
 
     // If an encoded `state` parameter is present, try to apply it (useful when
@@ -74,9 +80,9 @@ export class App implements OnInit {
     const explicitOverlay = params.get('overlay') === 'true';
 
     if (detectedSid) {
-      // Full-screen and overlay pages are viewers (read-only);
+      // Full-screen, overlay, and scoreboard pages are viewers (read-only);
       // the config/setup page is the editor (read-write).
-      const isViewer = this.isFullScreenMode() || explicitOverlay || window.self !== window.top;
+      const isViewer = this.isFullScreenMode() || this.isScoreboardMode() || explicitOverlay || window.self !== window.top;
       this.state.setSession(detectedSid, isViewer ? 'read-only' : 'read-write');
     } else if (explicitOverlay) {
       // No SID but overlay flag present: mark as remote to hide chrome

@@ -4,7 +4,7 @@
   <div class="team left-team">
     <div class="team-slots">
       @for (slot of state.leftTeam(); track slot.gameClass.id; let i = $index) {
-      <div class="slot-wrapper img-wrapper" draggable="true" (dragstart)="onDragStart('left', i, $event)"
+      <div class="slot-wrapper img-wrapper" [attr.draggable]="readonly() ? false : true" (dragstart)="onDragStart('left', i, $event)"
         (dragend)="onDragEnd($event)" (dragover)="onDragOver($event)" (drop)="onDrop('left', i, $event)"
         (contextmenu)="onContextRemove('left', i, $event)">
         <img src="{{slot.gameClass.image}}" alt="" class="team-img" draggable="false" (click)="toggleDead('left', i)" />
@@ -16,7 +16,7 @@
           </svg>
         </div>
         }
-        @if (!overlayMode() || state.overlayEditEnabled()) {
+        @if (!readonly() && (!overlayMode() || state.overlayEditEnabled())) {
         <button class="remove-btn" (click)="removeClass('left', i); $event.stopPropagation()" title="Retirer">✕</button>
         }
       </div>
@@ -28,7 +28,7 @@
         @if (editingLeft()) {
           <input #leftInput class="team-title-input" [value]="state.leftTeamName()" (input)="state.setTeamName('left', $event.target.value)" (blur)="stopEditing('left')" (keydown.enter)="$event.preventDefault(); stopEditing('left')" />
         } @else {
-          <span class="team-title-text" (click)="startEditing('left')">{{state.leftTeamName()}}</span>
+          <span class="team-title-text" (click)="!readonly() && startEditing('left')">{{state.leftTeamName()}}</span>
         }
       </div>
     </div>
@@ -36,7 +36,7 @@
       @if (editingLeftScore()) {
         <input #leftScoreInput class="score-input" (blur)="commitScore('left', $event.target.value); stopEditingScore('left')" (keydown.enter)="$event.preventDefault(); commitScore('left', $event.target.value); stopEditingScore('left')" type="number" min="0" max="99" />
       } @else {
-        <span class="score-value" (click)="startEditingScore('left')">{{ state.leftScore() }}</span>
+        <span class="score-value" (click)="!readonly() && startEditingScore('left')">{{ state.leftScore() }}</span>
       }
     </div>
   </div>
@@ -50,7 +50,7 @@
       @if (editingRightScore()) {
         <input #rightScoreInput class="score-input" (blur)="commitScore('right', $event.target.value); stopEditingScore('right')" (keydown.enter)="$event.preventDefault(); commitScore('right', $event.target.value); stopEditingScore('right')" type="number" min="0" max="99" />
       } @else {
-        <span class="score-value" (click)="startEditingScore('right')">{{ state.rightScore() }}</span>
+        <span class="score-value" (click)="!readonly() && startEditingScore('right')">{{ state.rightScore() }}</span>
       }
     </div>
     <div class="team-title-box right-title-box">
@@ -58,7 +58,7 @@
         @if (editingRight()) {
           <input #rightInput class="team-title-input" [value]="state.rightTeamName()" (input)="state.setTeamName('right', $event.target.value)" (blur)="stopEditing('right')" (keydown.enter)="$event.preventDefault(); stopEditing('right')" />
         } @else {
-          <span class="team-title-text" (click)="startEditing('right')">{{state.rightTeamName()}}</span>
+          <span class="team-title-text" (click)="!readonly() && startEditing('right')">{{state.rightTeamName()}}</span>
         }
       </div>
     </div>
@@ -77,7 +77,7 @@
           </svg>
         </div>
         }
-        @if (!overlayMode() || state.overlayEditEnabled()) {
+        @if (!readonly() && (!overlayMode() || state.overlayEditEnabled())) {
         <button class="remove-btn" (click)="removeClass('right', i); $event.stopPropagation()"
           title="Retirer">✕</button>
         }

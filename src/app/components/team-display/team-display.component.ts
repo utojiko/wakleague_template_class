@@ -14,6 +14,9 @@ export class TeamDisplayComponent {
   /** When true, hides the remove buttons (overlay mode) */
   overlayMode = input<boolean>(false);
 
+  /** When true, disables all editing (click-to-edit, dead toggle, drag-drop) */
+  readonly = input<boolean>(false);
+
   // inline editing flags as signals for reactivity
   editingLeft = signal<boolean>(false);
   editingRight = signal<boolean>(false);
@@ -28,17 +31,17 @@ export class TeamDisplayComponent {
   @ViewChild('rightScoreInput') rightScoreInput?: ElementRef<HTMLInputElement>;
 
   toggleDead(team: 'left' | 'right', index: number): void {
-    console.log(`Toggling dead for ${team} at index ${index}`);
+    if (this.readonly()) return;
     this.state.toggleDead(team, index);
   }
 
   removeClass(team: 'left' | 'right', index: number): void {
-    console.log(`Removing class from ${team} at index ${index}`);
+    if (this.readonly()) return;
     this.state.removeClass(team, index);
   }
 
   startEditing(team: 'left' | 'right'): void {
-    console.log(`Starting to edit team name for ${team}`);
+    if (this.readonly()) return;
     if (team === 'left') {
       this.editingLeft.set(true);
       setTimeout(() => {
@@ -61,6 +64,7 @@ export class TeamDisplayComponent {
   }
 
   startEditingScore(team: 'left' | 'right'): void {
+    if (this.readonly()) return;
     if (team === 'left') {
       this.editingLeftScore.set(true);
       setTimeout(() => {
@@ -90,6 +94,7 @@ export class TeamDisplayComponent {
 
   /** Remove a class when user right-clicks (context menu) on a slot */
   onContextRemove(team: 'left' | 'right', index: number, event: MouseEvent): void {
+    if (this.readonly()) return;
     event.preventDefault();
     event.stopPropagation();
     this.removeClass(team, index);
@@ -101,6 +106,7 @@ export class TeamDisplayComponent {
   private dragIndex: number | null = null;
 
   onDragStart(team: 'left' | 'right', index: number, event: DragEvent): void {
+    if (this.readonly()) return;
     this.dragTeam = team;
     this.dragIndex = index;
     event.dataTransfer?.setData('text/plain', `${team}:${index}`);
@@ -112,6 +118,7 @@ export class TeamDisplayComponent {
   }
 
   onDrop(team: 'left' | 'right', toIndex: number, event: DragEvent): void {
+    if (this.readonly()) return;
     event.preventDefault();
     if (this.dragTeam === team && this.dragIndex !== null && this.dragIndex !== toIndex) {
       this.state.reorderTeam(team, this.dragIndex, toIndex);
@@ -122,6 +129,7 @@ export class TeamDisplayComponent {
   }
 
   onDragOver(event: DragEvent): void {
+    if (this.readonly()) return;
     event.preventDefault();
   }
 
