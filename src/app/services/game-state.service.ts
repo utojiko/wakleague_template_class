@@ -230,6 +230,8 @@ export class GameStateService {
           };
           if (raw.leftTeamName !== undefined) payload.leftTeamName = raw.leftTeamName;
           if (raw.rightTeamName !== undefined) payload.rightTeamName = raw.rightTeamName;
+          if (raw.leftScore !== undefined) payload.leftScore = raw.leftScore;
+          if (raw.rightScore !== undefined) payload.rightScore = raw.rightScore;
           if (raw.overlayEditEnabled !== undefined) payload.overlayEditEnabled = !!raw.overlayEditEnabled;
           if (raw.mapId !== undefined) payload.mapId = raw.mapId;
 
