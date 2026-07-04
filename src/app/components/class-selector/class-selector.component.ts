@@ -29,12 +29,12 @@ export class ClassSelectorComponent {
       this.state.setSession(sid);
     }
     // Use a query parameter so GitHub Pages does not return a 404 for the session URL.
-    const overlayUrl = `${origin}${base}?session=${encodeURIComponent(sid)}`;
+    const overlayUrl = `${origin}${base}?session=${encodeURIComponent(sid)}&scoreboard=true`;
 
     try {
       await navigator.clipboard.writeText(overlayUrl);
       if (!created) {
-        this.toast.show('Lien overlay copié dans le presse-papiers. Collez-le dans OBS / Streamlabs.');
+        this.toast.show('Lien scoreboard copié dans le presse-papiers. Collez-le dans OBS / Streamlabs.');
       }
     } catch {
       // Fallback: show the URL for manual copy
@@ -44,7 +44,7 @@ export class ClassSelectorComponent {
     // If we just created the session, redirect the current page to that clean session URL
     if (created) {
       try {
-        window.location.href = overlayUrl;
+        window.location.href = `${origin}${base}?session=${encodeURIComponent(sid)}`;
       } catch {
         // ignore navigation errors
       }
