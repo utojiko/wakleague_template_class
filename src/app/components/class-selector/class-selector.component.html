@@ -22,6 +22,9 @@
     <button class="reset-btn" (click)="reset()">🔄 Réinitialiser</button>
     <button class="copy-overlay-btn" (click)="copyOverlayLink()">🔗 Copier le lien Overlay</button>
     <button class="copy-fullscreen-btn" (click)="copyFullScreenLink()">🖥️ Copier le lien Full-Screen</button>
+    <button class="toggle-score-btn" (click)="toggleScore()">
+      {{ state.showScore() ? '📊 Masquer le score' : '📊 Afficher le score' }}
+    </button>
   </div>
 
   @if (showResetDialog) {

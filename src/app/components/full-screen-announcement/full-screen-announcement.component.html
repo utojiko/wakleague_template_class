@@ -25,11 +25,13 @@
   </div>
 
   <div class="vs-section">
-    <div class="score-display">
-      <span class="score left-score">{{ state.leftScore() }}</span>
-      <span class="score-separator">-</span>
-      <span class="score right-score">{{ state.rightScore() }}</span>
-    </div>
+    @if (state.showScore()) {
+      <div class="score-display">
+        <span class="score left-score">{{ state.leftScore() }}</span>
+        <span class="score-separator">-</span>
+        <span class="score right-score">{{ state.rightScore() }}</span>
+      </div>
+    }
     <div class="vs-circle">
       <span class="vs-text">VS</span>
     </div>

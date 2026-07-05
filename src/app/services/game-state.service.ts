@@ -28,6 +28,9 @@ export class GameStateService {
   /** Whether overlay edit mode is enabled (shows full selector inside overlay) */
   readonly overlayEditEnabled = signal<boolean>(false);
 
+  /** Whether scores are displayed next to team names */
+  readonly showScore = signal<boolean>(true);
+
   /** Current session id for remote sync (null = no remote session) */
   readonly sessionId = signal<string | null>(null);
 
@@ -88,6 +91,7 @@ export class GameStateService {
         leftScore: this.leftScore(),
         rightScore: this.rightScore(),
         overlayEditEnabled: this.overlayEditEnabled(),
+        showScore: this.showScore(),
         mapId: this.selectedMap()?.id ?? null,
       };
       try {
@@ -142,6 +146,7 @@ export class GameStateService {
         if ((parsed as any).leftScore !== undefined) payload.leftScore = (parsed as any).leftScore;
         if ((parsed as any).rightScore !== undefined) payload.rightScore = (parsed as any).rightScore;
         if ((parsed as any).overlayEditEnabled !== undefined) payload.overlayEditEnabled = (parsed as any).overlayEditEnabled;
+        if ((parsed as any).showScore !== undefined) payload.showScore = !!(parsed as any).showScore;
         if ((parsed as any).mapId !== undefined) payload.mapId = (parsed as any).mapId;
 
         this.applyExportedState(payload);
@@ -174,6 +179,7 @@ export class GameStateService {
           if ((parsed as any).leftScore !== undefined) payload.leftScore = (parsed as any).leftScore;
           if ((parsed as any).rightScore !== undefined) payload.rightScore = (parsed as any).rightScore;
           if ((parsed as any).overlayEditEnabled !== undefined) payload.overlayEditEnabled = (parsed as any).overlayEditEnabled;
+          if ((parsed as any).showScore !== undefined) payload.showScore = !!(parsed as any).showScore;
           if ((parsed as any).mapId !== undefined) payload.mapId = (parsed as any).mapId;
 
           // Apply but avoid echoing back on the BroadcastChannel
@@ -233,6 +239,7 @@ export class GameStateService {
           if (raw.leftScore !== undefined) payload.leftScore = raw.leftScore;
           if (raw.rightScore !== undefined) payload.rightScore = raw.rightScore;
           if (raw.overlayEditEnabled !== undefined) payload.overlayEditEnabled = !!raw.overlayEditEnabled;
+          if (raw.showScore !== undefined) payload.showScore = !!raw.showScore;
           if (raw.mapId !== undefined) payload.mapId = raw.mapId;
 
           this.applyExportedState(payload);
@@ -248,7 +255,7 @@ export class GameStateService {
   /**
    * Return a serializable snapshot suitable for sharing with an overlay URL.
    */
-  serializeForExport(): { leftTeam: { id: string; isDead: boolean }[]; rightTeam: { id: string; isDead: boolean }[]; leftTeamName?: string; rightTeamName?: string; leftScore?: number; rightScore?: number; overlayEditEnabled?: boolean; mapId?: string | null } {
+  serializeForExport(): { leftTeam: { id: string; isDead: boolean }[]; rightTeam: { id: string; isDead: boolean }[]; leftTeamName?: string; rightTeamName?: string; leftScore?: number; rightScore?: number; overlayEditEnabled?: boolean; showScore?: boolean; mapId?: string | null } {
     return {
       leftTeam: this.leftTeam().map(s => ({ id: s.gameClass.id, isDead: s.isDead })),
       rightTeam: this.rightTeam().map(s => ({ id: s.gameClass.id, isDead: s.isDead })),
@@ -257,6 +264,7 @@ export class GameStateService {
       leftScore: this.leftScore(),
       rightScore: this.rightScore(),
       overlayEditEnabled: this.overlayEditEnabled(),
+      showScore: this.showScore(),
       mapId: this.selectedMap()?.id ?? null,
     };
   }
@@ -285,7 +293,7 @@ export class GameStateService {
    * Apply an exported snapshot (from `serializeForExport`) into the current state.
    * Unknown class ids are ignored.
    */
-  applyExportedState(payload: { leftTeam?: { id: string; isDead: boolean }[]; rightTeam?: { id: string; isDead: boolean }[]; leftTeamName?: string; rightTeamName?: string; leftScore?: number; rightScore?: number; overlayEditEnabled?: boolean; mapId?: string | null }) {
+  applyExportedState(payload: { leftTeam?: { id: string; isDead: boolean }[]; rightTeam?: { id: string; isDead: boolean }[]; leftTeamName?: string; rightTeamName?: string; leftScore?: number; rightScore?: number; overlayEditEnabled?: boolean; showScore?: boolean; mapId?: string | null }) {
     const hydrate = (slots?: { id: string; isDead: boolean }[]) =>
       (slots || [])
         .map(s => {
@@ -308,6 +316,8 @@ export class GameStateService {
     if (payload.rightScore !== undefined) this.rightScore.set(payload.rightScore);
     // overlay edit flag
     if ((payload as any).overlayEditEnabled !== undefined) this.overlayEditEnabled.set(!!(payload as any).overlayEditEnabled);
+    // show score
+    if ((payload as any).showScore !== undefined) this.showScore.set(!!(payload as any).showScore);
     // map
     if (payload.mapId !== undefined) this.setMap(payload.mapId);
   }
@@ -321,6 +331,11 @@ export class GameStateService {
   /** Toggle or set overlay edit mode */
   setOverlayEdit(enabled: boolean): void {
     this.overlayEditEnabled.set(!!enabled);
+  }
+
+  /** Toggle score visibility */
+  toggleShowScore(): void {
+    this.showScore.update(v => !v);
   }
 
   /**
@@ -423,6 +438,7 @@ export class GameStateService {
       if ((state as any).leftScore !== undefined) this.leftScore.set((state as any).leftScore);
       if ((state as any).rightScore !== undefined) this.rightScore.set((state as any).rightScore);
       if ((state as any).overlayEditEnabled) this.overlayEditEnabled.set(!!(state as any).overlayEditEnabled);
+      if ((state as any).showScore !== undefined) this.showScore.set(!!(state as any).showScore);
       if ((state as any).mapId) this.setMap((state as any).mapId);
     } catch {
       // corrupted storage — ignore

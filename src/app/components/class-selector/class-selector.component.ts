@@ -112,6 +112,10 @@ export class ClassSelectorComponent {
     }
   }
 
+  toggleScore(): void {
+    this.state.toggleShowScore();
+  }
+
   selectMap(map: GameMap): void {
     const isSelected = this.state.selectedMap()?.id === map.id;
     this.state.setMap(isSelected ? null : map.id);

@@ -203,6 +203,30 @@
   opacity: 0.98;
 }
 
+.toggle-score-btn {
+  margin-left: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #2ecc71 0%, #27ae60 100%);
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 8px 22px rgba(46, 204, 113, 0.18), inset 0 -2px 8px rgba(0,0,0,0.08);
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 140ms ease;
+}
+
+.toggle-score-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(46, 204, 113, 0.22), inset 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.toggle-score-btn:active {
+  transform: translateY(-1px) scale(0.995);
+  opacity: 0.98;
+}
+
 /* Status bar */
 .status-bar {
   display: flex;

@@ -32,13 +32,15 @@
         }
       </div>
     </div>
-    <div class="score-control left-score-control">
-      @if (editingLeftScore()) {
-        <input #leftScoreInput class="score-input" (blur)="commitScore('left', $event.target.value); stopEditingScore('left')" (keydown.enter)="$event.preventDefault(); commitScore('left', $event.target.value); stopEditingScore('left')" type="number" min="0" max="99" />
-      } @else {
-        <span class="score-value" (click)="!readonly() && startEditingScore('left')">{{ state.leftScore() }}</span>
-      }
-    </div>
+    @if (state.showScore()) {
+      <div class="score-control left-score-control">
+        @if (editingLeftScore()) {
+          <input #leftScoreInput class="score-input" (blur)="commitScore('left', $event.target.value); stopEditingScore('left')" (keydown.enter)="$event.preventDefault(); commitScore('left', $event.target.value); stopEditingScore('left')" type="number" min="0" max="99" />
+        } @else {
+          <span class="score-value" (click)="!readonly() && startEditingScore('left')">{{ state.leftScore() }}</span>
+        }
+      </div>
+    }
   </div>
 
   <!-- Center gap -->
@@ -46,13 +48,15 @@
 
   <!-- Right Team (images only) -->
   <div class="team right-team">
-    <div class="score-control right-score-control">
-      @if (editingRightScore()) {
-        <input #rightScoreInput class="score-input" (blur)="commitScore('right', $event.target.value); stopEditingScore('right')" (keydown.enter)="$event.preventDefault(); commitScore('right', $event.target.value); stopEditingScore('right')" type="number" min="0" max="99" />
-      } @else {
-        <span class="score-value" (click)="!readonly() && startEditingScore('right')">{{ state.rightScore() }}</span>
-      }
-    </div>
+    @if (state.showScore()) {
+      <div class="score-control right-score-control">
+        @if (editingRightScore()) {
+          <input #rightScoreInput class="score-input" (blur)="commitScore('right', $event.target.value); stopEditingScore('right')" (keydown.enter)="$event.preventDefault(); commitScore('right', $event.target.value); stopEditingScore('right')" type="number" min="0" max="99" />
+        } @else {
+          <span class="score-value" (click)="!readonly() && startEditingScore('right')">{{ state.rightScore() }}</span>
+        }
+      </div>
+    }
     <div class="team-title-box right-title-box">
       <div class="team-title-img" [style.width.px]="getTitleWidth('right')">
         @if (editingRight()) {
